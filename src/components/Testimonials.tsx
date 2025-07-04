@@ -1,8 +1,17 @@
 import React from 'react'
-import { assets, testimonialsData } from '../assets/assets';
-import { motion } from 'framer-motion';
+import { assets, testimonialsData } from '../assets/assets'
+import { motion } from 'framer-motion'
 
-const Testimonials = () => {
+type Testimonial = {
+    image: string
+    alt: string
+    name: string
+    title: string
+    rating: number
+    text: string
+}
+
+const Testimonials: React.FC = () => {
     return (
         <motion.div
             initial={{ opacity: 0, x: 100 }}
@@ -17,14 +26,14 @@ const Testimonials = () => {
             <p className='text-center text-gray-500 mb-12 max-w-80 mx-auto'>Real Stories from Those Who Found With Us </p>
 
             <div className='flex flex-wrap justify-center gap-8'>
-                {testimonialsData.map((testimonals, index) => (
+                {(testimonialsData as Testimonial[]).map((testimonals, index) => (
                     <div key={index} className='max-w-[340px] border shadow-lg rounded px-8 py-12 text-center '>
                         <img className='w-20 h-20 rounded-full mx-auto mb-4' src={testimonals.image} alt={testimonals.alt} />
                         <h2 className='text-xl text-gray-700 font-medium'>{testimonals.name}</h2>
                         <p className='text-gray-500 mb-4  text-sm'>{testimonals.title}</p>
                         <div className='flex justify-center gap-1 text-red-500 mb-4'>
-                            {Array.from({ length: testimonals.rating }, (item, index) => (
-                                <img key={index} src={assets.star_icon} alt="" />
+                            {Array.from({ length: testimonals.rating }, (_, i) => (
+                                <img key={i} src={assets.star_icon} alt="" />
                             ))}
                         </div>
                         <p className='text-gray-600'>{testimonals.text}</p>
@@ -33,6 +42,6 @@ const Testimonials = () => {
             </div>
         </motion.div>
     )
-};
+}
 
-export default Testimonials;
+export default Testimonials
